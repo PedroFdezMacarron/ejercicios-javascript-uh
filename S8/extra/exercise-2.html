@@ -1,14 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="exercise-2.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="exercise-2.js" defer></script>
     <title>Document</title>
-</head>
-<body>
+    <style>
+      #content {
+        display: table;
+        width: 100%;
+      }
+      .padre{
+        display: flex;
+        gap:10px;
+      }
+      .boton{
+        width: 100px;
+      }
+      .col0{
+        width: 130px;
+        text-align: right;
+        
+      }
+      .col1{
+        width: 30px;
+      }
+      .col2{
+        width: 100px;
+    }
+    .col3{
+        width: 150px;
+    }
+    .col4{
+        width: 900px;
+    }
 
-</body>
+      .person {
+        display:flex;
+        flex-direction: row;
+
+      }
+
+      .person div {
+        display: table-cell;
+        border-bottom: black 1px solid;
+        padding: 5px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="content"></div>
+    <br /><br />
+    <button type="button" id="add_button">Ordenar por fecha</button>
+  </body>
 </html>

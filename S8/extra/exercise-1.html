@@ -5,8 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="exercise-1.js" defer></script>
     <title>Document</title>
+    <style>
+        body,html {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+          }
+          
+          .titulo{
+            background-color: black;
+            color: yellow;
+            font-size: 45px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            width: 100%;
+            text-align: center;
+          }
+      
+          #personajes{
+              display: flex;
+              flex-wrap: wrap;  
+              gap:20px;
+              justify-content:space-evenly;
+              width: 100%;
+          }
+          .ficha{
+              color: white;
+              background-color: grey;
+              border-radius: 20px;
+              display: flex;
+              flex-direction: column;              
+              width: 250px;                          
+          }
+          .img{
+            width: 250px;         
+            border-radius: 20px;   
+            object-fit: cover;
+          }
+          .nombre{
+            text-align: center;
+          }
+
+          
+        </style>
+
+
 </head>
 <body>
-    
+    <div class="titulo">PERSONAJES DE RICK & MORTY</div>
+    <div id="personajes">
+
+    </div>    
 </body>
 </html>
