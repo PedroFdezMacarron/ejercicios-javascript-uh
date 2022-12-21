@@ -12,6 +12,9 @@
 
 const userAnwsers = [];
 
+const confirmValue = confirm('Soy un texto');
+const propmt = prompt('Soy un texto');
+
 function confirmExample(miDescription){
 
     return(confirm(miDescription));
@@ -25,9 +28,7 @@ function father(valor,instruccion){
     userAnwsers.push(instruccion(valor));
 }
 
-father('Soy un texto',confirm);
-father('Soy un texto',prompt);
+father(confirmValue,confirm);
+father(propmt,prompt);
 
 // guia de confirm y prompt
-// const confirmValue = confirm('Soy un texto');
-// const propmt = prompt('Soy un texto');
