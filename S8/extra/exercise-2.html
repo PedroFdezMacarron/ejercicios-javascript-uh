@@ -13,13 +13,19 @@
       #content {
         display: table;
         width: 100%;
+  
       }
       .padre{
         display: flex;
-        gap:10px;
+        gap:10px;        
+        align-items: center;
+        height: 40px;
+        border-bottom: 1px solid black;
       }
       .boton{
         width: 100px;
+        
+   
       }
       .col0{
         width: 130px;
@@ -33,22 +39,26 @@
         width: 100px;
     }
     .col3{
-        width: 150px;
+        width: 180px;
     }
     .col4{
-        width: 900px;
+        width: 980px;
     }
 
       .person {
         display:flex;
         flex-direction: row;
-
+      }
+      .person.header{
+        display:flex;
+        flex-direction: row;
+        border-bottom: 1px solid black;
       }
 
       .person div {
-        display: table-cell;
-        border-bottom: black 1px solid;
+        display: table-cell;        
         padding: 5px;
+        
       }
 
     </style>
@@ -56,6 +66,6 @@
   <body>
     <div id="content"></div>
     <br /><br />
-    <button type="button" id="add_button">Ordenar por fecha</button>
+    <button type="button" id="sort_button">Ordenar por fecha</button>
   </body>
 </html>

@@ -12,7 +12,7 @@ const init = async () =>{
     todoList = await traerTodo(urlApi);
     console.log(todoList);  
     loadContent();  
-    document.querySelector('#add_button').onclick = addPerson;
+    document.querySelector('#sort_button').onclick = ordenar;
 }
 
 init();
@@ -47,24 +47,26 @@ init();
     todoList.forEach((element, index) => printPerson(element, index));
   }
 
-  const addPerson = () => {
-    const name = document.querySelector('#form_name').value;
-    const role = document.querySelector('#form_role').value;
-    const age = document.querySelector('#form_age').value;
-    personList.push({
-      name,
-      role,
-      age,
-    });
-    printPerson(personList[personList.length - 1], (personList.length - 1));
-    clearForm();
-  };
-
-  const clearForm = () =>{
-    document.querySelector('#form_name').value='';
-    document.querySelector('#form_role').value='';
-    document.querySelector('#form_age').value=undefined;
+  const ordename=(a,b)=>{
+        return a>b;
   }
+  const ordenar = () => {
+      
+    todoList.sort(function (a, b) {
+        if (a.date > b.date) {
+          return 1;
+        }
+        if (a.date < b.date) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+      loadContent();
+
+
+  };
+  
 
   const deletePerson = (index) => {
     todoList.splice(index, 1);   
