@@ -7,7 +7,6 @@
 
 // NO ESTÁ LA API DISPONIBLE.  SE HACE CON LA DE RICK AND MORTY
 
-let personajes={}
 
 const traerUrls = async (url) =>{
     const response = await fetch(url);
@@ -53,6 +52,7 @@ const init = async () =>{
     const arrayUrls = await traerUrls(urlApi);
     console.log(arrayUrls);
     printDatos(arrayUrls);
+    
 }
 
 init();

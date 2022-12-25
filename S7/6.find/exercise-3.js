@@ -23,7 +23,6 @@ const mutations = [
   },
 ];
 
-
 aliens.find((alien) => alien.name === 'Cucushumushu').mutation = findMuta = mutations.find((muta) => muta.name === 'Porompompero');
 
 console.log(aliens)
