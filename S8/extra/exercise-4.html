@@ -6,10 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="exercise-4.js" defer></script>
+    <style>
+        .imgplanet{
+            height: 200px;
+            padding: 0px;
+            border: 1px solid black;
+            border-radius: 20px;
+        }
+        .planets{
+            display: flex;
+            gap:30px;
+        }
+        .characters{
+            display: flex;
+            gap:20px;
+        }
+        .character{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap:20px;
+            font-size: 30px;
+            border: 1px solid black;
+        }
+        .imgcharacter{
+            height: 400px;
+            padding: 0px;            
+            border-radius: 20px;
+        }
+
+    </style>
 </head>
 <body>
 
-    <div data-function="planets" style="display: flex"></div>
+    <div data-function="planets" class="planets"></div>
     <div data-function="search"></div>
     <div data-function="characters" style="display: flex; flex-wrap: wrap"></div>
     
