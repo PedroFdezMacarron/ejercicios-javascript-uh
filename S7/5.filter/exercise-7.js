@@ -9,8 +9,13 @@ const streamers = [
   { name: "AuronPlay", age: 33, gameMorePlayed: "Among Us" },
 ];
 
-const valorTexto = document.querySelector('[data-function="toFilterStreamers"]').value;
-newArray = streamers.filter((jugador) => (jugador.name.includes(valorTexto)));
-console.log(newArray);
+const texto = document.querySelector('[data-function="toFilterStreamers"]');
+texto.addEventListener('input',()=>filtra(texto.value));
+
+const filtra=(filtro)=>{
+  newArray = streamers.filter((jugador) => (jugador.name.includes(filtro)));
+  console.log(newArray);
+}
+
 
 
