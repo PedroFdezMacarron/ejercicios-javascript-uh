@@ -4,6 +4,9 @@ let anterior_jugada=-1;
 let score = 0;
 let attempts = 0;
 
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
 
 let cardArray = [
     {
@@ -67,6 +70,10 @@ let cardArray = [
       img: "public/exercise-1/uranus.svg",
     },
   ];
+
+// desordena el array
+cardArray=shuffle(cardArray);
+
 
 // amplia las propiedades del array
 for (let index = 0; index < cardArray.length; index++) {
