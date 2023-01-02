@@ -35,7 +35,7 @@ const main = async () => {
 
   // coge el botón para añadir nuevop guerrero
   mibtn = document.getElementById("crear");
-  mibtn.addEventListener("click", () => crear(characters.length + 1));
+  mibtn.addEventListener("click", (event) => crear(characters.length + 1,event));
 
   // carga datos por defecto
   document.getElementById("name").value = "Mago";
@@ -47,8 +47,8 @@ const main = async () => {
   document.getElementById("damage").value = '6d6,2d10,1d20';
 };
 
-const crear = async (newId) => {
-  event.preventDefault();
+const crear = async (newId,event) => {
+  event.preventDefault();  
 
   // midiv=document.querySelectorAll('formulario');
   let vname = document.getElementById("name").value;
@@ -102,8 +102,8 @@ const postData=async(url = "", data = {})=> {
 }
 
 const reset = (arena) => {
-  arena.pop();
-  arena.pop();
+  // borra el contenido del array arena.
+  arena=[];
   showArena(arena);
   // quita visibilidad
   document.getElementById("reset").className = "boton invisible";
