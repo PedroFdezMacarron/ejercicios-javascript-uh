@@ -1,0 +1,75 @@
+body{
+    margin: 0 auto;
+    padding: 0;    
+}
+.b-board-game {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.b-board-game img {
+  width: 100px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.out {
+  width: 100px;
+  margin: 10px;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.b-questions {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* flex-direction: column; */
+  border: 6px solid #fe4f60;
+  border-radius: 10px;
+  padding: 24px;
+  /* min-width:99vh; */
+  gap: 20px;
+}
+
+.b-clues {
+  width: 150px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.b-questions h2,
+h2 {
+  font-family: Arial;
+  color: #333333;
+  font-size: 15px;
+}
+
+.questionsbutton {
+  border-radius: 10px;
+  min-width: 150px;
+  padding: 10px;
+  background-color: #fe4f60;
+  color: #ffffff;
+  border: 0;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.questionsOut {
+  border-radius: 10px;
+  min-width: 150px;
+  padding: 10px;
+  background-color: #fe4f6056;
+  color: #ffffff;
+  border: 0;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  pointer-events: none;
+}
