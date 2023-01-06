@@ -1,3 +1,4 @@
+// ARRAYS DADOS PARA EL JUEGO
 const questionsType = [
   {
     title: "Gender",
@@ -40,7 +41,6 @@ const questionsType = [
     questions: ["Yes", "No"],
   },
 ];
-
 const persons = [
   {
     img: "public/exercise-3/001-man.svg",
@@ -539,13 +539,18 @@ const persons = [
   },
 ];
 
-const showPersons = (persons, pistas, who, position) => {
+// FUNCIÓN QUE PINTA TODAS LAS PERSONAS
+// usa las pistas seleccionadas para cambiar la clase y que la imagen sea transparente
+const showPersons = (objParam) => {
+  let persons = objParam.persons;
+  let pistas = objParam.pistas;
+  let who = objParam.who;
+
+  // SELECCIONA EL CONTENEDOR PARA PINTAR LAS PERSONAS
   let contenedor$$ = document.querySelector('[data-function="boardGame"]');
   contenedor$$.innerHTML = "";
-  console.log("muestra personas");
-  // console.log(position);
-  // console.log(who);
 
+  // recorre array personas
   persons.forEach((element, index) => {
     let miDiv$$ = document.createElement("img");
     miDiv$$.className = "b-board-game img";
@@ -560,9 +565,10 @@ const showPersons = (persons, pistas, who, position) => {
       // console.log('clave',clave);
       dato = who[clave];
       // console.log('dato',dato);
+
       // compara el valor elegido por el usuario
       // con el valor del personaje seleccionado al azar
-      // si son
+      // si son iguales y el personaje recorrido tiene distinto, no muestra imagen
       if (who[clave] == valorElegido) {
         if (valorElegido !== element[clave]) {
           miDiv$$.className = "out";
@@ -573,13 +579,18 @@ const showPersons = (persons, pistas, who, position) => {
         }
       }
     });
+    // añade al contenedor cada personaje
     contenedor$$.appendChild(miDiv$$);
   });
 };
 
-const showQuestions = (questionsType, pistas) => {
+// FUNCIÓN QUE PINTA LAS PREGUNTAS
+const showQuestions = (objParam) => {
+  let questionsType = objParam.questionsType;
   let contenedor$$ = document.querySelector('[data-function="questions"]');
   contenedor$$.innerHTML = "";
+  
+  // recorre el array de pistas y las pinta
   questionsType.forEach((element) => {
     let miDiv$$ = document.createElement("div");
     miDiv$$.className = "b-clues";
@@ -587,33 +598,38 @@ const showQuestions = (questionsType, pistas) => {
     let miDiv2$$ = document.createElement("h2");
     miDiv2$$.textContent = element.title;
     miDiv$$.appendChild(miDiv2$$);
+    // recorre el array de opciones y los pinta como botones
+    // he tenido que cambiar la clase para poder desactivar en css los botones
     element.questions.forEach((option, index) => {
       miBtn$$ = document.createElement("button");
       miBtn$$.className = "questionsbutton";
       miBtn$$.textContent = option;
       miBtn$$.id = `${element.key}btn${index}`;
+      // añade el botón
       miDiv$$.appendChild(miBtn$$);
     });
+    // añade todos los elementos de la pista. texto y botones
     contenedor$$.appendChild(miDiv$$);
   });
 };
 
-const selectPista = (event, pistas, persons, who, position) => {
-  if (event.target.className === "questionsbutton") {
-    // controla que no sea una pista excluyente
-
-    // comprobar si la persona seleccionada aleatoriamente por el juego
-    // coincide con la opción seleccionada por el usuario
+// FUNCIÓN DE CADA PISTA ELEGIDA
+// tiene que añadir al array de pistas
+const selectPista = (event, objParam) => {
+  // sólo para pistas que no han sido elegidas
+  // cuando se elige una pista se le cambia el className
+  // también se puede hacer buscando en el array de pistas
+  if (event.target.className === "questionsbutton") {        
     const key = event.target.parentElement.id;
     const selection = event.target.textContent;
-    console.log(event.target.id);
-
     let midiv = document.getElementById(event.target.id);
+
+    // desactiva el botón pulsado
     midiv.className = "questionsOut";
     // console.log('how:',who[key] , '  seleccionado',selection);
 
-    // añade pista
-    pistas.push({
+    // añade pista al array
+    objParam.pistas.push({
       key: event.target.parentElement.id,
       selection: event.target.textContent,
     });
@@ -624,10 +640,14 @@ const selectPista = (event, pistas, persons, who, position) => {
     counter++;
     divCounter$$.textContent = counter;
   }
-  showPersons(persons, pistas, who, position);
+  showPersons(objParam);
 };
 
-const iKnow = (event, pistas, persons) => {
+// FUNCIÓN CUANDO EL USUARIO ELIGE LA PERSONA
+// muestra si es ok y resetea el juego
+const iKnow = (event, objParam) => {
+  let position = objParam.position;
+  let pistas = objParam.pistas;
   if (event.target.className === "b-board-game img") {
     if (event.target.id == position) {
       alert(
@@ -638,54 +658,54 @@ const iKnow = (event, pistas, persons) => {
         "has fallado. TARGET " + event.target.id + "  POSITION:" + position
       );
     }
-    reset(pistas);
-    showPersons(persons, pistas, who, position);
+    reset(objParam);
+    showPersons(objParam);
   }
 };
 
-const reset = (pistas) => {
+// FUNCIÓN QUE RESTEA LAS VARIABLES. el juego empieza de nuevo
+const reset = (objParam) => {
   const divCounter$$ = document.querySelector('[data-function="clueCount"]');
   divCounter$$.textContent = "0";
-  pistas.length = 0;
-  position = Math.ceil(Math.random() * (persons.length - 1));
-  who = persons[position];
-  showQuestions(questionsType, pistas);
+  objParam.pistas.length = 0;
+  objParam.position = Math.ceil(Math.random() * (persons.length - 1));
+  objParam.who = persons[objParam.position];
+  showQuestions(objParam);
 };
 
-show = (pistas) => {
-  console.log(who);
-  console.log(position);
-  console.log(pistas);
-};
-
-let position = -1;
-let who = {};
-
+// FUNCIÓN PRINCIPAL. 
+// crea objeto principal y define eventos
 const main = async (persons, questionsType) => {
+  // array para ir guardando las pistas que elige el usuario
   let pistas = [];
-  // selección aleatoria de la persona
-  position = Math.ceil(Math.random() * (persons.length - 1));
-  who = persons[position];
+
+  // variable para la selección aleatoria de la persona
+  let position = Math.ceil(Math.random() * (persons.length - 1));
+
+  // objeto con las propiedades de la persona elegida al azar
+  let who = persons[position];
+
+  // declaramos un objeto con todas las variables globales
+  const objParam = { persons, questionsType, pistas, position, who };
 
   // muestra personas y pistas
-  showPersons(persons, pistas, who, position);
-  showQuestions(questionsType, pistas);
+  showPersons(objParam);
+  showQuestions(objParam);
 
   // añade el evento clic al div con las preguntas.
   let contenedor$$ = document.querySelector('[data-function="questions"]');
   contenedor$$.addEventListener("click", (event) =>
-    selectPista(event, pistas, persons, who, position)
+    selectPista(event, objParam)
   );
 
   // añade el evento clic al div con los personajes.
   let personajes$$ = document.querySelector('[data-function="boardGame"]');
-  personajes$$.addEventListener("click", (event) =>
-    iKnow(event, pistas, persons)
-  );
+  personajes$$.addEventListener("click", (event) => iKnow(event, objParam));
 
-  // añade un evento al contador para validaciones
+  // añade un evento secreto al contador para validaciones
   const divCounter$$ = document.querySelector('[data-function="clueCount"]');
-  divCounter$$.addEventListener("click", () => show(pistas));
+  divCounter$$.addEventListener("click", () => console.log(objParam));
 };
 
+// llamada a la función principal
 main(persons, questionsType);
