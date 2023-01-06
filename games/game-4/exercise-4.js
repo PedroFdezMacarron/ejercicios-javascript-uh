@@ -1,20 +1,30 @@
+// FUNCIÓN QUE CREA EL TABLERO
+const arrayBorad = (rows, cols, imgXUrl) => {
+  // crear filas
+  var array = new Array(rows);
+  for (let i = 0; i < array.length; i++) {
+    // crear columnas
+    array[i] = new Array(cols);
+  }
+  // recorremos para asignar imagen al array.
+  // cada coordenada tiene la imagen de la "X"
+  for (let row = 0; row < array.length; row++) {
+    for (let col = 0; col < array[row].length; col++) {
+      array[row][col] = imgXUrl;
+    }
+  }
+  return array;
+};
 
 // FUNCIÓN QUE DISPARA
 // usando el evento clilck del tablero
 const shot = (event, objParam) => {
   // carga en array coordenadas usando el id del elemento del DOM
   let coordenadas = event.target.id.split(",");
-  // destructuring
-  let {rows,cols,imgChestUrl,imgSkullUrl,imgXUrl,randomRow,randomCol,marcador} = objParam;
-  
-  // si hace click fuera de una imagen válida cancela
-  if(!event.target.src.includes('x.png')){  
-    return
-  }
 
   // incrementa contador
-  console.log(marcador.textContent);
-  marcador.textContent++;
+  console.log(objParam.marcador.textContent);
+  objParam.marcador.textContent++;
 
   // si la posición es tesoro muestra img del tesoro
   if (
@@ -22,32 +32,34 @@ const shot = (event, objParam) => {
     objParam.randomCol == coordenadas[1]
   ) {
     // tesoro encontrado
-    event.target.src = imgChestUrl;
-    marcador.textContent = `TESORO ENCONTRADO CON: ${marcador.textContent} INTENTOS`;
+    event.target.src = objParam.imgChestUrl;
+    objParam.marcador.textContent = `TESORO ENCONTRADO CON: ${objParam.marcador.textContent} INTENTOS`;
   } else {
-    // muestra calavera    
-    event.target.src = imgSkullUrl;
+    // muestra calavera
+    // objParam.arrayBorad[row][col] = objParam.imgSkullUrl;
+    event.target.src = objParam.imgSkullUrl;
   }
 };
 
 // FUNCIÓN QUE PINTA EL TABLERO
 const showBoard = (objParam) => {
-  // destructuring
-  let {rows,cols,imgChestUrl,imgSkullUrl,imgXUrl,randomRow,randomCol,marcador} = objParam;
-  
+  let rows = objParam.rows;
+  let cols = objParam.cols;
+  let board = objParam.board;
+
   // limpiamos tablero
   let contenedor$$ = document.querySelector('[data-function="board"]');
   contenedor$$.innerHTML = "";  
 
   // recorremos el array
-  for (let row = 0; row < rows; row++) {
+  for (let row = 0; row < board.length; row++) {
     miRow$$ = document.createElement("tr");
-    for (let col = 0; col < cols; col++) {
+    for (let col = 0; col < board[row].length; col++) {
       miCol$$ = document.createElement("td");
       miCol$$.className = "card";
       miImg$$ = document.createElement("img");
       miImg$$.id = row + "," + col;
-      miImg$$.src = objParam.imgXUrl;
+      miImg$$.src = board[row][col];
       miCol$$.appendChild(miImg$$);
       miRow$$.appendChild(miCol$$);
     }
@@ -55,12 +67,13 @@ const showBoard = (objParam) => {
   }
 };
 
-const reset = (objParam) => {  
+const reset = (objParam) => {
   objParam.rows = parseInt(prompt("¿filas?", "2"));
   objParam.cols = parseInt(prompt("¿columnas?", "2"));  
   objParam.marcador.textContent = '0';
   objParam.randomRow = Math.floor(Math.random() * (objParam.rows));
-  objParam.randomCol = Math.floor(Math.random() * (objParam.cols));  
+  objParam.randomCol = Math.floor(Math.random() * (objParam.cols));
+  objParam.board = arrayBorad(objParam.rows, objParam.cols, objParam.imgXUrl);
   showBoard(objParam);
 };
 
@@ -74,7 +87,10 @@ const main = () => {
   let rows = parseInt(prompt("¿filas?", "2"));
   let cols = parseInt(prompt("¿columnas?", "2"));
 
-    // marcador
+  // definimos tablero
+  let board = arrayBorad(rows, cols, imgXUrl);
+
+  // marcador
   let marcador = document.querySelector('[data-function="attempts"]');
 
   // ramdom del tesoro
@@ -84,7 +100,8 @@ const main = () => {
   // definimos objeto para pasar parámetros
   const objParam = {
     rows,
-    cols,  
+    cols,
+    board,
     imgChestUrl,
     imgSkullUrl,
     imgXUrl,
@@ -105,6 +122,8 @@ const main = () => {
 
   // pintamos tablero
   showBoard(objParam);
+
+
 };
 
 main();
