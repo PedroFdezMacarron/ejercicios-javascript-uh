@@ -24,6 +24,7 @@ const shot = (event, objParam) => {
   let coordenadas = event.target.id.split(",");
 
   // incrementa contador
+  console.log(objParam.marcador.textContent);
   objParam.marcador.textContent++;
 
   // si la posición es tesoro muestra img del tesoro
@@ -33,7 +34,7 @@ const shot = (event, objParam) => {
   ) {
     // tesoro encontrado
     event.target.src = objParam.imgChestUrl;
-    // alert('TESORO ENCONTRADO CON:'+objParam.marcador.textContent+ 'INTENTOS')
+    objParam.marcador.textContent = `TESORO ENCONTRADO CON: ${objParam.marcador.textContent} INTENTOS`;
   } else {
     // muestra calavera
     // objParam.arrayBorad[row][col] = objParam.imgSkullUrl;
@@ -49,8 +50,7 @@ const showBoard = (objParam) => {
 
   // limpiamos tablero
   let contenedor$$ = document.querySelector('[data-function="board"]');
-  contenedor$$.innerHTML = "";
-  contenedor$$.addEventListener("click", (event) => shot(event, objParam));
+  contenedor$$.innerHTML = "";  
 
   // recorremos el array
   for (let row = 0; row < board.length; row++) {
@@ -70,9 +70,8 @@ const showBoard = (objParam) => {
 
 const reset = (objParam) => {
   objParam.rows = parseInt(prompt("¿filas?", "2"));
-  objParam.cols = parseInt(prompt("¿columnas?", "2"));
-  console.log(objParam.rows);
-  objParam.marcador.textContent = 0;
+  objParam.cols = parseInt(prompt("¿columnas?", "2"));  
+  objParam.marcador.textContent = '0';
   objParam.randomRow = Math.floor(Math.random() * (objParam.rows));
   objParam.randomCol = Math.floor(Math.random() * (objParam.cols));
   objParam.board = arrayBorad(objParam.rows, objParam.cols, objParam.imgXUrl);
@@ -99,17 +98,11 @@ const main = () => {
   let randomRow = Math.floor(Math.random() * (rows));
   let randomCol = Math.floor(Math.random() * (cols));
 
-
-
-  // definimos array de disparos. cada elemento tiene fila y columna
-  const shots = [];
-
   // definimos objeto para pasar parámetros
   const objParam = {
     rows,
     cols,
     board,
-    shots,
     imgChestUrl,
     imgSkullUrl,
     imgXUrl,
@@ -124,8 +117,14 @@ const main = () => {
   mibtn$$.addEventListener("click", () => reset(objParam));
   document.querySelector("body").appendChild(mibtn$$);
 
+  // asignamos evento al click en el tablero
+  let contenedor$$ = document.querySelector('[data-function="board"]');  
+  contenedor$$.addEventListener("click", (event) => shot(event, objParam));
+
   // pintamos tablero
   showBoard(objParam);
+
+
 };
 
 main();
