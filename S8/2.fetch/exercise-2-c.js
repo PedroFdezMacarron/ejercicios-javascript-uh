@@ -26,28 +26,26 @@ miBoton.onclick = () => {
 
 // creamos en el body un elemento tipo P
 const generaP = (datosJson,contador) => {   
-    const miP$$ = document.createElement('p');
-    let textoP$$=`El nombre ${miTexto.value}`;
+    const miDiv$$ = document.createElement('div');
+    miDiv$$.textContent=`El nombre ${miTexto.value}`;
     // recorrer el bucle de estadísticas
-    for(i=0;i<datosJson.country.length;i++){  
+    for(let i=0;i<datosJson.country.length;i++){        
+        const miP$$ = document.createElement('p');
+        miP$$.id='p'+i;
         let ratio = (datosJson.country[i].probability*100).toFixed(2);
-        textoP$$ += ` tiene un ${ratio} porciento de ser de ${datosJson.country[i].country_id}`;
-    }
-    miP$$.textContent = textoP$$;  // asigna todo el texto al contenedor P
-    miP$$.id=contador;  // identifica cada elemento P con un número
-    document.body.appendChild(miP$$);  // añade al body el P
-
-    // añade el botón al P
-    const buttonPerson = document.createElement('button');
-    buttonPerson.innerHTML = ' X ' + contador;
-    buttonPerson.onclick = () => remover(contador);
-    miP$$.appendChild(buttonPerson);   
+        miP$$.textContent = ` tiene un ${ratio} porciento de ser de ${datosJson.country[i].country_id} `;
+        const miBtn$$ = document.createElement('button');        
+        miBtn$$.textContent='x';
+        miBtn$$.addEventListener('click',(event)=>remover(i));       
+        miP$$.appendChild(miBtn$$);
+        document.body.appendChild(miP$$);  // añade al body el P
+    }  
 }
 
 // para quitar un párrafo enviamos la posición que es el id del párrafo
 const remover=(pos) =>{
     console.log('quitar',pos);
-    const miP$$ = document.getElementById(pos);  // localiza el P a quitar por el id
+    const miP$$ = document.getElementById('p'+pos);  // localiza el P a quitar por el id
     miP$$.remove();
 }
 
