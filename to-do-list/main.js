@@ -33,9 +33,9 @@ const addTask=(evt,miObjeto)=>{
 }
 
 // FUNCION PARA ELIMINAR TAREAS
-const removeTask=(event,miObjeto)=>{
+const removeTask=(event)=>{
     // controla que damos en un botón eliminar tarea
-    if(event.target.className='btn-delete'){
+    if(event.target.className==='btn-delete'){
         const taskId = 'task'+event.target.id;
         miTask$$ = document.getElementById(taskId);
         miTask$$.remove();        
@@ -59,7 +59,7 @@ const main=()=>{
     // capturamos el div dónde añadir tareas
     let contenedor$$ = document.querySelector("div.li-container ul");
     // capturamos eventos en el listado de tareas para eliminar
-    contenedor$$.addEventListener('click',(event)=>removeTask(event,miObjeto));
+    contenedor$$.addEventListener('click',(event)=>removeTask(event));
 
     // creamos el objeto para pasar a las funciones
     const miObjeto ={miTxt,contenedor$$,contador};
